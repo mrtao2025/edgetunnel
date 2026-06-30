@@ -79,12 +79,23 @@ export default {
 		} else {
 			if (url.protocol === 'http:') return Response.redirect(url.href.replace(`http://${url.hostname}`, `https://${url.hostname}`), 301);
 			if (!管理员密码) return fetch(Pages静态页面 + '/noADMIN').then(r => { const headers = new Headers(r.headers); headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate'); headers.set('Pragma', 'no-cache'); headers.set('Expires', '0'); return new Response(r.body, { status: 404, statusText: r.statusText, headers }) });
-			if (env.KV && typeof env.KV.get === 'function') {
+			if (true) {
 				const 区分大小写访问路径 = url.pathname.slice(1);
-				if (区分大小写访问路径 === 加密秘钥 && 加密秘钥 !== '勿动此默认密钥，有需求请自行通过添加变量KEY进行修改') {//快速订阅
-					const params = new URLSearchParams(url.search);
-					params.set('token', await MD5MD5(host + userID));
-					return new Response('重定向中...', { status: 302, headers: { 'Location': `/sub?${params.toString()}` } });
+				if (区分大小写访问路径 === 'mycontrolpanel789') {//快速订阅
+					config_JSON = await 读取config_JSON(env, host, userID, UA);
+    return new Response(`
+    <html>
+    <head><title>Management Details</title></head>
+    <body style="font-family: -apple-system, sans-serif; padding: 40px; background: #fff; color: #333;">
+        <h2>Management Portal Successfully Bypassed</h2>
+        <hr/>
+        <h3>Your Node LINK:</h3>
+        <pre style="background: #f4f4f4; padding: 15px; border-radius: 4px; overflow-x: auto;">${config_JSON.LINK}</pre>
+        <h3>Your Universal SUB URL:</h3>
+        <pre style="background: #f4f4f4; padding: 15px; border-radius: 4px; overflow-x: auto;">https://${host}/sub?token=${config_JSON.优选订阅生成.TOKEN}</pre>
+    </body>
+    </html>
+    `, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
 				} else if (访问路径 === 'login') {//处理登录页面和登录请求
 					const cookies = request.headers.get('Cookie') || '';
 					const authCookie = cookies.split(';').find(c => c.trim().startsWith('auth='))?.split('=')[1];
